@@ -1,0 +1,18 @@
+S3 Upload Test
+
+Bucket:
+s3://eric-borba-bootcamp-bucket-2026
+
+Command Executed:
+aws s3 cp test.txt s3://eric-borba-bootcamp-bucket-2026
+
+Result:
+upload: ./test.txt to s3://eric-borba-bootcamp-bucket-2026/test.txt
+
+Verification:
+The file upload completed successfully using the IAM role attached to the EC2 instance.
+
+No AWS access keys were configured manually.
+No aws configure command was used.
+
+The EC2 instance authenticated using temporary IAM role credentials.

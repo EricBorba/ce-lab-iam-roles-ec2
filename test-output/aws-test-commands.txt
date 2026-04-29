@@ -1,0 +1,87 @@
+AWS CLI Installation and IAM Role Verification
+
+--------------------------------------------------
+1. AWS CLI Installation
+--------------------------------------------------
+
+Command:
+sudo ./aws/install
+
+Output:
+You can now run: /usr/local/bin/aws --version
+
+--------------------------------------------------
+2. AWS CLI Version Verification
+--------------------------------------------------
+
+Command:
+aws --version
+
+Output:
+aws-cli/2.34.38 Python/3.14.4 Linux/6.17.0-1012-aws exe/x86_64.ubuntu.24
+
+--------------------------------------------------
+3. IAM Role Verification
+--------------------------------------------------
+
+Command:
+aws sts get-caller-identity
+
+Output:
+{
+    "UserId": "AROA4WA45YNHLYXYYFS6W:i-093f98279195ce0d9",
+    "Account": "871939031886",
+    "Arn": "arn:aws:sts::871939031886:assumed-role/ec2-s3-cloudwatch-role/i-093f98279195ce0d9"
+}
+
+Verification:
+The output confirms that the EC2 instance authenticated using the IAM role:
+ec2-s3-cloudwatch-role
+
+No access keys or aws configure command were used.
+
+--------------------------------------------------
+4. S3 Bucket Access Test
+--------------------------------------------------
+
+Command:
+aws s3 ls s3://eric-borba-bootcamp-bucket-2026
+
+Output:
+Bucket listed successfully with no permission errors.
+
+--------------------------------------------------
+5. Test File Creation
+--------------------------------------------------
+
+Command:
+echo "test.txt" > test.txt
+
+Output:
+File created successfully.
+
+--------------------------------------------------
+6. Initial Upload Attempt with Incorrect Syntax
+--------------------------------------------------
+
+Command:
+aws s3 cp s3://eric-borba-bootcamp-bucket-2026
+
+Output:
+aws: [ERROR]: An error occurred (ParamValidation): the following arguments are required: paths
+
+Explanation:
+The command failed because the source file path was missing.
+
+--------------------------------------------------
+7. Successful S3 Upload Test
+--------------------------------------------------
+
+Command:
+aws s3 cp test.txt s3://eric-borba-bootcamp-bucket-2026
+
+Output:
+upload: ./test.txt to s3://eric-borba-bootcamp-bucket-2026/test.txt
+
+Verification:
+The file upload completed successfully using the IAM role attached to the EC2 instance.
